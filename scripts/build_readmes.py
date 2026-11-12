@@ -156,7 +156,7 @@ def readme(e, actor, build):
     o.append("## Data source and terms\n\n%s The server returns the data as published at the time of the call. You are responsible for using it in line with the source's terms and the laws that apply to you. AlphaOSINT is not affiliated with the source.\n" % e["data_source"])
     o.append("## Links\n\n- Actor on Apify: https://apify.com/%s\n- Docs page: https://alphaosint.com/mcp/%s/\n- All AlphaOSINT MCP servers: [index](../../README.md)\n" % (slug, name))
     text = "\n".join(o)
-    assert "fpr=" not in text and "fp_sid" not in text, name
+    assert not re.search(r"fp(r|_sid)=", text), name
     return text
 
 def main():
