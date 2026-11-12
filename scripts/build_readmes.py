@@ -3,10 +3,8 @@
 
 Source of truth: _data/mcp_servers.yml in johnisanerd/website-alphaosint (pass its path), plus each
 Actor's public build definition from the Apify API (input schema, dataset schema, live prices).
-Every README is written for GitHub's MCP Registry review: tool names, parameters, a short example,
-setup for Claude Code, VS Code, Cursor and Claude Desktop, a plain note that calls run on Apify's
-hosted endpoint and bill the user's Apify account, how the server differs from the others and from
-Apify's shared endpoint, and no referral parameters anywhere.
+Each README covers what the server does, when to use it, pricing, the endpoint, client setup,
+tools, parameters, an example call and output fields.
 
     uv run --with pyyaml python scripts/build_readmes.py ../website-alphaosint/_data/mcp_servers.yml
 """
@@ -100,18 +98,16 @@ def readme(e, actor, build):
     o.append("# %s MCP server\n" % e["title"])
     o.append("Registry name: `io.github.johnisanerd/%s`. Maintained by AlphaOSINT (Apify developer `johnvc`, GitHub `johnisanerd`).\n" % name)
     o.append("## What it does\n\n%s\n" % e["purpose"])
-    o.append("## How it differs\n\n%s\n\n"
-             "**From the other AlphaOSINT servers:** each server wraps exactly one Apify Actor and does one job; "
-             "the [index](../../README.md) lists them side by side.\n\n"
-             "**From Apify's shared endpoint:** `https://mcp.apify.com` on its own exposes general tools "
-             "(`search-actors`, `call-actor`) that let an agent look for and run any of thousands of Actors. "
-             "This server's URL pins one Actor with `?tools=%s`, so the agent gets a single tool, `%s`, whose "
-             "parameters are this Actor's typed input schema. There is no search or Actor-selection step, and "
-             "the agent cannot start other Actors through it.\n" % (e["distinct"], slug, tool))
-    o.append("## Hosted on Apify, billed to your Apify account\n\n"
-             "This server is not self-hosted. It runs on Apify's hosted MCP endpoint (`mcp.apify.com`), which "
-             "starts the Apify Actor `%s` for each tool call. You need an Apify account, and **every call is "
-             "billed to that account** at the Actor's prices:\n" % slug)
+    o.append("## When to use it\n\n%s\n" % e["distinct"])
+    o.append("## How it works\n\n"
+             "The server runs on Apify's hosted MCP endpoint, so there is nothing to install or host. Its URL "
+             "pins one Actor with `?tools=%s`, which gives your agent a single tool, `%s`, whose parameters are "
+             "the Actor's typed input schema. The agent can call that tool directly without searching for an "
+             "Actor first, and it can't start other Actors through this server. For general access to the "
+             "whole Apify Store, use `https://mcp.apify.com` without the `tools` parameter.\n" % (slug, tool))
+    o.append("## Pricing\n\n"
+             "Each tool call runs the Apify Actor `%s` on your own Apify account and is billed there at the "
+             "Actor's prices:\n" % slug)
     if main:
         o.append("| Charge | Price (USD) | What it covers |\n|---|---|---|")
         for t, p, d in main:

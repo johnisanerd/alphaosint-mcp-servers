@@ -6,17 +6,17 @@ Registry name: `io.github.johnisanerd/google-flights`. Maintained by AlphaOSINT 
 
 Search one-way, round-trip and multi-city itineraries and get prices, airlines, stops, layovers, durations and optional booking options as JSON.
 
-## How it differs
+## When to use it
 
 Fares and itineraries for any route and date, with filters for stops, airlines, cabin and passengers. Use it for trip-planning agents, fare monitoring and route analysis.
 
-**From the other AlphaOSINT servers:** each server wraps exactly one Apify Actor and does one job; the [index](../../README.md) lists them side by side.
+## How it works
 
-**From Apify's shared endpoint:** `https://mcp.apify.com` on its own exposes general tools (`search-actors`, `call-actor`) that let an agent look for and run any of thousands of Actors. This server's URL pins one Actor with `?tools=johnvc/Google-Flights-Data-Scraper-Flight-and-Price-Search`, so the agent gets a single tool, `johnvc--Google-Flights-Data-Scraper-Flight-and-Price-Search`, whose parameters are this Actor's typed input schema. There is no search or Actor-selection step, and the agent cannot start other Actors through it.
+The server runs on Apify's hosted MCP endpoint, so there is nothing to install or host. Its URL pins one Actor with `?tools=johnvc/Google-Flights-Data-Scraper-Flight-and-Price-Search`, which gives your agent a single tool, `johnvc--Google-Flights-Data-Scraper-Flight-and-Price-Search`, whose parameters are the Actor's typed input schema. The agent can call that tool directly without searching for an Actor first, and it can't start other Actors through this server. For general access to the whole Apify Store, use `https://mcp.apify.com` without the `tools` parameter.
 
-## Hosted on Apify, billed to your Apify account
+## Pricing
 
-This server is not self-hosted. It runs on Apify's hosted MCP endpoint (`mcp.apify.com`), which starts the Apify Actor `johnvc/Google-Flights-Data-Scraper-Flight-and-Price-Search` for each tool call. You need an Apify account, and **every call is billed to that account** at the Actor's prices:
+Each tool call runs the Apify Actor `johnvc/Google-Flights-Data-Scraper-Flight-and-Price-Search` on your own Apify account and is billed there at the Actor's prices:
 
 | Charge | Price (USD) | What it covers |
 |---|---|---|

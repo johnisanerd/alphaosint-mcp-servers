@@ -6,17 +6,17 @@ Registry name: `io.github.johnisanerd/linkedin-people-search`. Maintained by Alp
 
 Find people by name, job title, employer, school or location and get profile URL, headline, current employer, location, and optionally about text, work history and education.
 
-## How it differs
+## When to use it
 
 Finds people you don't have profile links for yet, where profile tools need the URL first. Use it for prospect lists, recruiting searches and finding the right contact at a company.
 
-**From the other AlphaOSINT servers:** each server wraps exactly one Apify Actor and does one job; the [index](../../README.md) lists them side by side.
+## How it works
 
-**From Apify's shared endpoint:** `https://mcp.apify.com` on its own exposes general tools (`search-actors`, `call-actor`) that let an agent look for and run any of thousands of Actors. This server's URL pins one Actor with `?tools=johnvc/linkedin-people-search-api`, so the agent gets a single tool, `johnvc--linkedin-people-search-api`, whose parameters are this Actor's typed input schema. There is no search or Actor-selection step, and the agent cannot start other Actors through it.
+The server runs on Apify's hosted MCP endpoint, so there is nothing to install or host. Its URL pins one Actor with `?tools=johnvc/linkedin-people-search-api`, which gives your agent a single tool, `johnvc--linkedin-people-search-api`, whose parameters are the Actor's typed input schema. The agent can call that tool directly without searching for an Actor first, and it can't start other Actors through this server. For general access to the whole Apify Store, use `https://mcp.apify.com` without the `tools` parameter.
 
-## Hosted on Apify, billed to your Apify account
+## Pricing
 
-This server is not self-hosted. It runs on Apify's hosted MCP endpoint (`mcp.apify.com`), which starts the Apify Actor `johnvc/linkedin-people-search-api` for each tool call. You need an Apify account, and **every call is billed to that account** at the Actor's prices:
+Each tool call runs the Apify Actor `johnvc/linkedin-people-search-api` on your own Apify account and is billed there at the Actor's prices:
 
 | Charge | Price (USD) | What it covers |
 |---|---|---|
