@@ -37,6 +37,9 @@ Each server's README has setup for VS Code, Cursor and Claude Desktop too, along
 | [Crunchbase Company](servers/crunchbase-company/) | `io.github.johnisanerd/crunchbase-company` | Look up companies by Crunchbase organization URL and get funding rounds and totals, investors, industries, headquarters, employee count, rank and operating status. |
 | [LinkedIn People Search](servers/linkedin-people-search/) | `io.github.johnisanerd/linkedin-people-search` | Find people by name, job title, employer, school or location and get profile URL, headline, current employer, location, and optionally about text, work history and education. |
 | [Workday Careers](servers/workday-careers/) | `io.github.johnisanerd/workday-careers` | List every job on a company's Workday careers site with title, location, posted date, full description, pay range when published, employment type, remote status and apply link. |
+| [Bing Copilot](servers/bing-copilot/) | `io.github.johnisanerd/bing-copilot` | Get the Copilot AI answer Bing shows for a query, with the answer text in structured blocks, the sources it cites and the brands it mentions. |
+| [Google Maps Places](servers/google-maps-places/) | `io.github.johnisanerd/google-maps-places` | Search Google Maps for places by keyword and location and get business name, address, phone, website, rating, review count, categories, coordinates and opening hours. |
+| [Yandex Reverse Image Search](servers/yandex-reverse-image-search/) | `io.github.johnisanerd/yandex-reverse-image-search` | Search Yandex by image URL and get the pages where the image appears, visually similar images, other sizes, matching shop products and image tags. |
 <!-- servers:end -->
 
 ## Maintenance

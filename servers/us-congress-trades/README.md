@@ -23,7 +23,7 @@ Each tool call runs the Apify Actor `johnvc/us-congress-financial-disclosures-an
 | Initiate | $0.001 | Start the server and answer a request. |
 | Transaction Retreived | $0.0019 | Each transaction retrieved. |
 
-Free-plan rates as of 2026-11-12; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/us-congress-financial-disclosures-and-stock-trading-data
+Free-plan rates as of 2026-11-13; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/us-congress-financial-disclosures-and-stock-trading-data
 
 ## Endpoint
 

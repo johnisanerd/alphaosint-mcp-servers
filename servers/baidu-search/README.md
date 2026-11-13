@@ -23,7 +23,7 @@ Each tool call runs the Apify Actor `johnvc/Baidu-Search-Scraper` on your own Ap
 | Search Start | $0.012 | One-time setup fee per Actor run |
 | Page Processed | $0.02 | Fee per page of search results processed. This returns a single page of search results. |
 
-Free-plan rates as of 2026-11-12; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/Baidu-Search-Scraper
+Free-plan rates as of 2026-11-13; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/Baidu-Search-Scraper
 
 ## Endpoint
 

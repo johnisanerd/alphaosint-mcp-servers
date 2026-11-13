@@ -23,7 +23,7 @@ Each tool call runs the Apify Actor `johnvc/DuckDuckGo-Scraper-for-serp-rankings
 | Setup | $0.00006 | One-time setup fee per Actor run |
 | Search result | $0.0004 | One DuckDuckGo search result delivered (organic, ad, news, knowledge-graph, image or video item). Only delivered results are billed; cached results bill the same. |
 
-Free-plan rates as of 2026-11-12; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/DuckDuckGo-Scraper-for-serp-rankings
+Free-plan rates as of 2026-11-13; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/DuckDuckGo-Scraper-for-serp-rankings
 
 ## Endpoint
 

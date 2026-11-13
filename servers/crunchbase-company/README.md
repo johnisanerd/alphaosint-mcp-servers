@@ -23,7 +23,7 @@ Each tool call runs the Apify Actor `johnvc/crunchbase-company-api` on your own 
 | Company scraped | $0.006 | Fee per company returned. Charged once for each company pushed to the dataset. |
 | Name or domain lookup | $0.002 | Fee per company name or website domain looked up (companyNames), charged whether or not a match is found. Organization URLs (companyUrls) never pay it. |
 
-Free-plan rates as of 2026-11-12; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/crunchbase-company-api
+Free-plan rates as of 2026-11-13; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/crunchbase-company-api
 
 ## Endpoint
 

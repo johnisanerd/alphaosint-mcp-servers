@@ -23,7 +23,7 @@ Each tool call runs the Apify Actor `johnvc/google-local-api` on your own Apify 
 | Setup | $0.002 | One-time setup fee per Actor run. Covers instance provisioning, memory allocation, and search session initialization. |
 | Pages Processed | $0.02 | Fee per page of Google Local search results processed. Returns the local pack businesses with rating, reviews, address, phone, hours, GPS, place_id, and links for that page. |
 
-Free-plan rates as of 2026-11-12; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00005). Current prices are on the Actor's page: https://apify.com/johnvc/google-local-api
+Free-plan rates as of 2026-11-13; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00005). Current prices are on the Actor's page: https://apify.com/johnvc/google-local-api
 
 ## Endpoint
 

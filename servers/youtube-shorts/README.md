@@ -23,7 +23,7 @@ Each tool call runs the Apify Actor `johnvc/youtube-shorts-api` on your own Apif
 | Short | $0.00001 | Charged per YouTube Short returned in the dataset (video metrics plus channel stats in one row). Error rows, empty channels and skipped items are not charged. |
 | Date filter | $0.00001 | Small extra charge per returned Short, applied only when oldestPostDate is set. |
 
-Free-plan rates as of 2026-11-12; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/youtube-shorts-api
+Free-plan rates as of 2026-11-13; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/youtube-shorts-api
 
 ## Endpoint
 

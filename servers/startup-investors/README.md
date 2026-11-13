@@ -24,7 +24,7 @@ Each tool call runs the Apify Actor `johnvc/startup-investors-data-scraper` on y
 | Firm Returned | $0.04 | Fee per firm processed. This is the cost to return a single firm. |
 | Contacts Returned | $0.02 | Fee per contact returned. If contacts are requested for each firm, this is the cost to return a single contact with all the details we have in our database of the investor at the firm. |
 
-Free-plan rates as of 2026-11-12; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/startup-investors-data-scraper
+Free-plan rates as of 2026-11-13; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/startup-investors-data-scraper
 
 ## Endpoint
 

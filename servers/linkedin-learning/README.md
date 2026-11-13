@@ -23,7 +23,7 @@ Each tool call runs the Apify Actor `johnvc/linkedin-learning-api` on your own A
 | Course found | $0.00001 | Charged once for each course returned by a search or topic page, with its title, instructors, length, level, thumbnail and link. Not charged for duplicates, for the popular-courses list LinkedIn shows when a query match… |
 | Full course record | $0.00001 | Charged once for each full course record returned: rating, learner reviews, the complete syllabus with per-lesson descriptions, free-lesson flags, instructors, skills and certificate details. Replaces the search charge… |
 
-Free-plan rates as of 2026-11-12; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/linkedin-learning-api
+Free-plan rates as of 2026-11-13; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/linkedin-learning-api
 
 ## Endpoint
 

@@ -23,7 +23,7 @@ Each tool call runs the Apify Actor `johnvc/google-scholar-api` on your own Apif
 | Setup | $0.005 | One-time setup fee per Actor run. Covers instance setup and API provisioning costs. |
 | Search API query executed | $0.015 | Fee per query executed against the upstream search API. Charged once per page on paginated modes (search, author_articles) and once per call on single-shot modes (cite, author_profile, author_citation, author_co_authors… |
 
-Free-plan rates as of 2026-11-12; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/google-scholar-api
+Free-plan rates as of 2026-11-13; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/google-scholar-api
 
 ## Endpoint
 

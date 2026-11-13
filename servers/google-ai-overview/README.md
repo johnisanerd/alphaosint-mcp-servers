@@ -23,7 +23,7 @@ Each tool call runs the Apify Actor `johnvc/Google-AI-Overview-API` on your own 
 | AI Overview retrieval | $0.0027 | Fee per AI Overview retrieval. One retrieval for a standard inline answer; two when Google defers generation and a follow-up fetch is required to resolve it. |
 | Setup | $0.00005 | One-time setup fee per Actor run, charged at startup to cover provisioning. |
 
-Free-plan rates as of 2026-11-12; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00005). Current prices are on the Actor's page: https://apify.com/johnvc/Google-AI-Overview-API
+Free-plan rates as of 2026-11-13; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00005). Current prices are on the Actor's page: https://apify.com/johnvc/Google-AI-Overview-API
 
 ## Endpoint
 

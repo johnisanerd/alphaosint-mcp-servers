@@ -23,7 +23,7 @@ Each tool call runs the Apify Actor `johnvc/google-shopping-api-google-shopping-
 | Setup | $0.02 | One-time setup fee per Actor run. Covers initialization and API provisioning costs. |
 | Page Processed | $0.02 | Fee per page of shopping results processed. Each page returns approximately 40 product listings. |
 
-Free-plan rates as of 2026-11-12; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/google-shopping-api-google-shopping-products-prices-deals
+Free-plan rates as of 2026-11-13; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/google-shopping-api-google-shopping-products-prices-deals
 
 ## Endpoint
 

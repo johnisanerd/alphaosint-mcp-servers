@@ -24,7 +24,7 @@ Each tool call runs the Apify Actor `johnvc/Google-Flights-Data-Scraper-Flight-a
 | Setup | $0.001 | One-time setup fee per Actor run |
 | Booking Options Processed | $0.02 | Fee per booking option returned when fetch_booking_options is enabled. Default is off. |
 
-Free-plan rates as of 2026-11-12; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/Google-Flights-Data-Scraper-Flight-and-Price-Search
+Free-plan rates as of 2026-11-13; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/Google-Flights-Data-Scraper-Flight-and-Price-Search
 
 ## Endpoint
 

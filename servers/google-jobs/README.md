@@ -22,7 +22,7 @@ Each tool call runs the Apify Actor `johnvc/Google-Jobs-Scraper` on your own Api
 |---|---|---|
 | Page Processed (up to 10 jobs) | $0.09 | Fee per page of search results returned (typically 10 job results) |
 
-Free-plan rates as of 2026-11-12; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00005). Current prices are on the Actor's page: https://apify.com/johnvc/Google-Jobs-Scraper
+Free-plan rates as of 2026-11-13; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00005). Current prices are on the Actor's page: https://apify.com/johnvc/Google-Jobs-Scraper
 
 ## Endpoint
 

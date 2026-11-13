@@ -23,7 +23,7 @@ Each tool call runs the Apify Actor `johnvc/linkedin-people-search-api` on your 
 | Person found | $0.0006 | Fee per person delivered to the dataset, with their public LinkedIn profile URL, name, headline and current employer. Charged once per person, never per search page, and never twice for the same person in one run. |
 | Person enriched | $0.0025 | Fee per person whose public profile page was opened and parsed, adding the about text, work history, education, follower count, photo and languages. Charged only when the enrichment actually returned data. |
 
-Free-plan rates as of 2026-11-12; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/linkedin-people-search-api
+Free-plan rates as of 2026-11-13; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/linkedin-people-search-api
 
 ## Endpoint
 

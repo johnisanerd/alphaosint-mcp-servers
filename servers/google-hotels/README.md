@@ -26,7 +26,7 @@ Each tool call runs the Apify Actor `johnvc/google-hotels-search-scraper` on you
 | Photo Returned | $0.001 | Fee per hotel photo returned, including full-size and thumbnail URLs, gallery section, dimensions, and source. |
 | Review Returned | $0.005 | Fee per guest review returned, including rating, review text, date, source platform, reviewer details, and the property's response. |
 
-Free-plan rates as of 2026-11-12; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00005). Current prices are on the Actor's page: https://apify.com/johnvc/google-hotels-search-scraper
+Free-plan rates as of 2026-11-13; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00005). Current prices are on the Actor's page: https://apify.com/johnvc/google-hotels-search-scraper
 
 ## Endpoint
 

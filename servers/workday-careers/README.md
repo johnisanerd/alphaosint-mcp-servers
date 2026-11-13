@@ -23,7 +23,7 @@ Each tool call runs the Apify Actor `johnvc/workday-careers-api` on your own Api
 | Job result | $0.0001 | Charged once per job posting returned to the dataset. Error rows are never charged. |
 | Actor start | $0.001 | Charged once when a run starts. |
 
-Free-plan rates as of 2026-11-12; paid Apify plans pay less per event. Current prices are on the Actor's page: https://apify.com/johnvc/workday-careers-api
+Free-plan rates as of 2026-11-13; paid Apify plans pay less per event. Current prices are on the Actor's page: https://apify.com/johnvc/workday-careers-api
 
 ## Endpoint
 

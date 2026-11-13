@@ -23,7 +23,7 @@ Each tool call runs the Apify Actor `johnvc/YoutubeTranscripts` on your own Apif
 | Video Processed | $0.00275 | Charged per YouTube video successfully transcribed. Includes the timestamped and plain-text transcript plus basic video metadata (title, channel, views, duration, thumbnail). Failed videos, videos without captions, and… |
 | Extended video metadata | $0.003 | Charged only when include_extended_metadata is true and the extra lookup succeeds (adds like count, upload date, categories and availability). Basic metadata is included free with every transcript. Failures are not char… |
 
-Free-plan rates as of 2026-11-12; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/YoutubeTranscripts
+Free-plan rates as of 2026-11-13; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/YoutubeTranscripts
 
 ## Endpoint
 
