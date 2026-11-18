@@ -12,23 +12,26 @@ Funding and investor data for named companies, rather than a search across the w
 
 ## How it works
 
-The server runs on Apify's hosted MCP endpoint, so there is nothing to install or host. Its URL pins one Actor with `?tools=johnvc/crunchbase-company-api`, which gives your agent a single tool, `johnvc--crunchbase-company-api`, whose parameters are the Actor's typed input schema. The agent can call that tool directly without searching for an Actor first, and it can't start other Actors through this server. For general access to the whole Apify Store, use `https://mcp.apify.com` without the `tools` parameter.
+The server runs on Apify's hosted MCP endpoint, so there is nothing to install or host. Its URL pins one Actor with `?tools=johnvc/crunchbase-company-api`. The Actor is a multi-tenant Server Actor, so the endpoint gives your agent one tool, `johnvc--crunchbase-company-api`, that sends a single HTTP request to the Actor's server interface and returns the JSON response, usually within seconds. Each request handles one item and starts no run in your account. The agent can't start other Actors through this URL.
+
+To also run the Actor in batch, with many items per run and the full input listed below, use `https://mcp.apify.com/?tools=call-actor,johnvc/crunchbase-company-api`. It adds Apify's `call-actor` tool, which can start any Actor your Apify account allows. For general access to the whole Apify Store, use `https://mcp.apify.com` without the `tools` parameter.
 
 ## Pricing
 
-Each tool call runs the Apify Actor `johnvc/crunchbase-company-api` on your own Apify account and is billed there at the Actor's prices:
+Each request through `johnvc--crunchbase-company-api` is charged to your Apify account at the Actor's prices and starts no run. A batch run through `call-actor` runs the Actor `johnvc/crunchbase-company-api` on your account at the same prices:
 
 | Charge | Price (USD) | What it covers |
 |---|---|---|
 | Company scraped | $0.006 | Fee per company returned. Charged once for each company pushed to the dataset. |
 | Name or domain lookup | $0.002 | Fee per company name or website domain looked up (companyNames), charged whether or not a match is found. Organization URLs (companyUrls) never pay it. |
 
-Free-plan rates as of 2026-11-13; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/crunchbase-company-api
+Free-plan rates as of 2026-11-18; paid Apify plans pay less per event. Batch runs also bill a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/crunchbase-company-api
 
 ## Endpoint
 
 - Transport: Streamable HTTP
-- URL: `https://mcp.apify.com/?tools=johnvc/crunchbase-company-api`
+- URL: `https://mcp.apify.com/?tools=johnvc/crunchbase-company-api` (the server tool only)
+- URL with batch runs: `https://mcp.apify.com/?tools=call-actor,johnvc/crunchbase-company-api`
 - Auth: Apify OAuth (opens on first use), or the header `Authorization: Bearer <APIFY_TOKEN>` (Apify Console → Settings → API & Integrations)
 
 ## Setup
@@ -81,19 +84,43 @@ claude mcp add --transport http crunchbase-company "https://mcp.apify.com/?tools
 }
 ```
 
+For batch runs, put the URL with batch runs in the same places.
+
 ## Tools
 
 | Tool | What it does |
 |---|---|
-| `johnvc--crunchbase-company-api` | Runs the Actor with the parameters below and returns the result rows. |
-| `get-actor-run` | Status of a run the tool started (for long runs). |
-| `get-dataset-items` | Pages through a run's full output when it is larger than the inline result. |
+| `johnvc--crunchbase-company-api` | Sends one HTTP request to the Actor's server interface (operations below) and returns the JSON response. Charged per event; starts no run. |
+
+With the URL with batch runs, Apify also adds:
+
+| Tool | What it does |
+|---|---|
+| `call-actor` | Runs the Actor (or another Actor) with an input such as the batch input below. |
+| `get-actor-run` | Status of a run started by `call-actor`. |
+| `get-dataset-items` | Reads a run's result rows. |
 | `get-key-value-store-record` | Reads a record a run stored. |
 | `abort-actor-run` | Stops a run. |
 
-Apify's endpoint adds the four helper tools whenever an Actor tool is loaded.
-
 ### Parameters of `johnvc--crunchbase-company-api`
+
+The tool takes `method`, `path`, and optionally `query` (query parameters by name) and `body` (a JSON body, POST only). The Actor documents these operations:
+
+| Method | Path | What it does |
+|---|---|---|
+| `GET` | `/company` | One company by organization URL or by name |
+| `POST` | `/company` | One company by organization URL or by name, with a JSON body |
+
+Query parameters of `GET /company`:
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `url` | string |  | Crunchbase organization URL. Give url or name, not both. |
+| `name` | string |  | Company name or website domain to look up (resolves to the single top-matching organization; the row's searchTerm field carries it). Give url or name, not both. |
+| `max_cache_age_days` | integer |  | How old a stored company record may be before it is collected again. 0 collects live; values above 45 count as 45. |
+
+
+### Batch input (for `call-actor`)
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---|---|---|
@@ -106,15 +133,30 @@ Ask the agent in plain language, or call `johnvc--crunchbase-company-api` with a
 
 ```json
 {
-  "companyUrls": [
-    "https://www.crunchbase.com/organization/openai"
-  ]
+  "method": "GET",
+  "path": "/company",
+  "query": {
+    "url": "https://www.crunchbase.com/organization/openai"
+  }
+}
+```
+
+A batch run through `call-actor` takes the Actor and its input:
+
+```json
+{
+  "actor": "johnvc/crunchbase-company-api",
+  "input": {
+    "companyUrls": [
+      "https://www.crunchbase.com/organization/openai"
+    ]
+  }
 }
 ```
 
 ### Output
 
-JSON rows with these fields:
+The server tool's JSON response carries result rows with these fields (batch runs write the same rows):
 
 | Field | Type | Description |
 |---|---|---|

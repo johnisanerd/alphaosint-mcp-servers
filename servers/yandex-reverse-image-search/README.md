@@ -12,22 +12,25 @@ Searches by image rather than by text. Use it for image provenance, copyright ch
 
 ## How it works
 
-The server runs on Apify's hosted MCP endpoint, so there is nothing to install or host. Its URL pins one Actor with `?tools=johnvc/yandex-reverse-image-search`, which gives your agent a single tool, `johnvc--yandex-reverse-image-search`, whose parameters are the Actor's typed input schema. The agent can call that tool directly without searching for an Actor first, and it can't start other Actors through this server. For general access to the whole Apify Store, use `https://mcp.apify.com` without the `tools` parameter.
+The server runs on Apify's hosted MCP endpoint, so there is nothing to install or host. Its URL pins one Actor with `?tools=johnvc/yandex-reverse-image-search`. The Actor is a multi-tenant Server Actor, so the endpoint gives your agent one tool, `johnvc--yandex-reverse-image-search`, that sends a single HTTP request to the Actor's server interface and returns the JSON response, usually within seconds. Each request handles one item and starts no run in your account. The agent can't start other Actors through this URL.
+
+To also run the Actor in batch, with many items per run and the full input listed below, use `https://mcp.apify.com/?tools=call-actor,johnvc/yandex-reverse-image-search`. It adds Apify's `call-actor` tool, which can start any Actor your Apify account allows. For general access to the whole Apify Store, use `https://mcp.apify.com` without the `tools` parameter.
 
 ## Pricing
 
-Each tool call runs the Apify Actor `johnvc/yandex-reverse-image-search` on your own Apify account and is billed there at the Actor's prices:
+Each request through `johnvc--yandex-reverse-image-search` is charged to your Apify account at the Actor's prices and starts no run. A batch run through `call-actor` runs the Actor `johnvc/yandex-reverse-image-search` on your account at the same prices:
 
 | Charge | Price (USD) | What it covers |
 |---|---|---|
 | Result returned | $0.0065 | One reverse image result row: a page where the image appears, a similar image, an alternate size, an image tag, a shopping match, or a knowledge graph card. |
 
-Free-plan rates as of 2026-11-13; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/yandex-reverse-image-search
+Free-plan rates as of 2026-11-18; paid Apify plans pay less per event. Batch runs also bill a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/yandex-reverse-image-search
 
 ## Endpoint
 
 - Transport: Streamable HTTP
-- URL: `https://mcp.apify.com/?tools=johnvc/yandex-reverse-image-search`
+- URL: `https://mcp.apify.com/?tools=johnvc/yandex-reverse-image-search` (the server tool only)
+- URL with batch runs: `https://mcp.apify.com/?tools=call-actor,johnvc/yandex-reverse-image-search`
 - Auth: Apify OAuth (opens on first use), or the header `Authorization: Bearer <APIFY_TOKEN>` (Apify Console → Settings → API & Integrations)
 
 ## Setup
@@ -80,19 +83,50 @@ claude mcp add --transport http yandex-reverse-image-search "https://mcp.apify.c
 }
 ```
 
+For batch runs, put the URL with batch runs in the same places.
+
 ## Tools
 
 | Tool | What it does |
 |---|---|
-| `johnvc--yandex-reverse-image-search` | Runs the Actor with the parameters below and returns the result rows. |
-| `get-actor-run` | Status of a run the tool started (for long runs). |
-| `get-dataset-items` | Pages through a run's full output when it is larger than the inline result. |
+| `johnvc--yandex-reverse-image-search` | Sends one HTTP request to the Actor's server interface (operations below) and returns the JSON response. Charged per event; starts no run. |
+
+With the URL with batch runs, Apify also adds:
+
+| Tool | What it does |
+|---|---|
+| `call-actor` | Runs the Actor (or another Actor) with an input such as the batch input below. |
+| `get-actor-run` | Status of a run started by `call-actor`. |
+| `get-dataset-items` | Reads a run's result rows. |
 | `get-key-value-store-record` | Reads a record a run stored. |
 | `abort-actor-run` | Stops a run. |
 
-Apify's endpoint adds the four helper tools whenever an Actor tool is loaded.
-
 ### Parameters of `johnvc--yandex-reverse-image-search`
+
+The tool takes `method`, `path`, and optionally `query` (query parameters by name) and `body` (a JSON body, POST only). The Actor documents these operations:
+
+| Method | Path | What it does |
+|---|---|---|
+| `GET` | `/search` | Reverse image search |
+| `POST` | `/search` | Reverse image search with a JSON body |
+
+Query parameters of `GET /search`:
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `image_url` | string | yes | Public http(s) URL of the image to search by. |
+| `yandex_domain` | string |  | Regional Yandex domain. |
+| `crop` | string |  | Optional crop box as left;top;right;bottom fractions from 0 to 1, e.g. 0.1;0.2;0.9;0.8. |
+| `max_results` | integer |  | Most rows to return, rounded up to a multiple of 10. |
+| `include_matching_pages` | boolean |  | Pages where the image appears. |
+| `include_similar_images` | boolean |  | Visually similar images. |
+| `include_image_sizes` | boolean |  | Other sizes of the same image. |
+| `include_image_tags` | boolean |  | Descriptive tags. |
+| `include_shopping_results` | boolean |  | Matching shop products. |
+| `include_knowledge_graph` | boolean |  | Knowledge graph card. |
+
+
+### Batch input (for `call-actor`)
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---|---|---|
@@ -113,14 +147,29 @@ Ask the agent in plain language, or call `johnvc--yandex-reverse-image-search` w
 
 ```json
 {
-  "image_url": "https://substack-post-media.s3.amazonaws.com/public/images/edbfb2cd-ebcb-4527-bec7-5315c182278f_445x445.png",
-  "max_results": 50
+  "method": "GET",
+  "path": "/search",
+  "query": {
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Camponotus_flavomarginatus_ant.jpg"
+  }
+}
+```
+
+A batch run through `call-actor` takes the Actor and its input:
+
+```json
+{
+  "actor": "johnvc/yandex-reverse-image-search",
+  "input": {
+    "image_url": "https://substack-post-media.s3.amazonaws.com/public/images/edbfb2cd-ebcb-4527-bec7-5315c182278f_445x445.png",
+    "max_results": 50
+  }
 }
 ```
 
 ### Output
 
-JSON rows with these fields:
+The server tool's JSON response carries result rows with these fields (batch runs write the same rows):
 
 | Field | Type | Description |
 |---|---|---|
