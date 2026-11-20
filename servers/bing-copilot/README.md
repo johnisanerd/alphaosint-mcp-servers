@@ -12,22 +12,25 @@ The Microsoft side of AI answer tracking, alongside Google AI Overview. Use it f
 
 ## How it works
 
-The server runs on Apify's hosted MCP endpoint, so there is nothing to install or host. Its URL pins one Actor with `?tools=johnvc/bing-copilot-api`, which gives your agent a single tool, `johnvc--bing-copilot-api`, whose parameters are the Actor's typed input schema. The agent can call that tool directly without searching for an Actor first, and it can't start other Actors through this server. For general access to the whole Apify Store, use `https://mcp.apify.com` without the `tools` parameter.
+The server runs on Apify's hosted MCP endpoint, so there is nothing to install or host. Its URL pins one Actor with `?tools=johnvc/bing-copilot-api`. The Actor is a multi-tenant Server Actor, so the endpoint gives your agent one tool, `johnvc--bing-copilot-api`, that sends a single HTTP request to the Actor's server interface and returns the JSON response, usually within seconds. Each request handles one item and starts no run in your account. The agent can't start other Actors through this URL.
+
+To also run the Actor in batch, with many items per run and the full input listed below, use `https://mcp.apify.com/?tools=call-actor,johnvc/bing-copilot-api`. It adds Apify's `call-actor` tool, which can start any Actor your Apify account allows. For general access to the whole Apify Store, use `https://mcp.apify.com` without the `tools` parameter.
 
 ## Pricing
 
-Each tool call runs the Apify Actor `johnvc/bing-copilot-api` on your own Apify account and is billed there at the Actor's prices:
+Each request through `johnvc--bing-copilot-api` is charged to your Apify account at the Actor's prices and starts no run. A batch run through `call-actor` runs the Actor `johnvc/bing-copilot-api` on your account at the same prices:
 
 | Charge | Price (USD) | What it covers |
 |---|---|---|
 | Copilot query resolved | $0.015 | One AI answer resolution: the answer, its structured text blocks, and its cited references when present. |
 
-Free-plan rates as of 2026-11-13; paid Apify plans pay less per event. Current prices are on the Actor's page: https://apify.com/johnvc/bing-copilot-api
+Free-plan rates as of 2026-11-19; paid Apify plans pay less per event. Current prices are on the Actor's page: https://apify.com/johnvc/bing-copilot-api
 
 ## Endpoint
 
 - Transport: Streamable HTTP
-- URL: `https://mcp.apify.com/?tools=johnvc/bing-copilot-api`
+- URL: `https://mcp.apify.com/?tools=johnvc/bing-copilot-api` (the server tool only)
+- URL with batch runs: `https://mcp.apify.com/?tools=call-actor,johnvc/bing-copilot-api`
 - Auth: Apify OAuth (opens on first use), or the header `Authorization: Bearer <APIFY_TOKEN>` (Apify Console → Settings → API & Integrations)
 
 ## Setup
@@ -80,25 +83,50 @@ claude mcp add --transport http bing-copilot "https://mcp.apify.com/?tools=johnv
 }
 ```
 
+For batch runs, put the URL with batch runs in the same places.
+
 ## Tools
 
 | Tool | What it does |
 |---|---|
-| `johnvc--bing-copilot-api` | Runs the Actor with the parameters below and returns the result rows. |
-| `get-actor-run` | Status of a run the tool started (for long runs). |
-| `get-dataset-items` | Pages through a run's full output when it is larger than the inline result. |
+| `johnvc--bing-copilot-api` | Sends one HTTP request to the Actor's server interface (operations below) and returns the JSON response. Charged per event; starts no run. |
+
+With the URL with batch runs, Apify also adds:
+
+| Tool | What it does |
+|---|---|
+| `call-actor` | Runs the Actor (or another Actor) with an input such as the batch input below. |
+| `get-actor-run` | Status of a run started by `call-actor`. |
+| `get-dataset-items` | Reads a run's result rows. |
 | `get-key-value-store-record` | Reads a record a run stored. |
 | `abort-actor-run` | Stops a run. |
 
-Apify's endpoint adds the four helper tools whenever an Actor tool is loaded.
-
 ### Parameters of `johnvc--bing-copilot-api`
+
+The tool takes `method`, `path`, and optionally `query` (query parameters by name) and `body` (a JSON body, POST only). The Actor documents these operations:
+
+| Method | Path | What it does |
+|---|---|---|
+| `GET` | `/answer` | Bing Copilot AI answer for one query |
+| `POST` | `/answer` | Bing Copilot AI answer for one query, JSON body |
+
+Query parameters of `GET /answer`:
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `query` | string | yes | The question or search phrase to resolve. One query per request. |
+| `brandToTrack` | string |  | Optional brand or product name. The row then carries a brandMentioned boolean. |
+| `max_cache_age_hours` | integer |  | Oldest saved answer, in hours, to serve instead of a live check. 48 is the minimum (lower values are treated as 48); raise it up to 168 to accept older saved answers. |
+
+
+### Batch input (for `call-actor`)
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---|---|---|
 | `query` | string |  | `"best crm for startups"` | REQUIRED (or use `queries`). A question or search phrase to resolve, e.g. 'best crm for startups'. Anything you would type into the answer engine works. |
 | `queries` | array |  |  | Provide a list of queries to resolve in one run, e.g. ['best crm for startups', 'best help desk software']. Each query returns one AI answer row. |
 | `brandToTrack` | string |  |  | Optional brand or product name, e.g. 'Salesforce'. Each answer row then includes a `brandMentioned` boolean showing whether the brand appears in the AI answer text or its cited sources. |
+| `max_cache_age_hours` | integer |  | `48` | Optional. A query answered within this many hours may be served from a saved copy instead of a fresh lookup, charged the same. Values below 48 are treated as 48; the maximum is 168. Default 48. |
 
 ### Example
 
@@ -106,13 +134,28 @@ Ask the agent in plain language, or call `johnvc--bing-copilot-api` with argumen
 
 ```json
 {
-  "query": "best crm for startups"
+  "method": "GET",
+  "path": "/answer",
+  "query": {
+    "query": "best crm for startups"
+  }
+}
+```
+
+A batch run through `call-actor` takes the Actor and its input:
+
+```json
+{
+  "actor": "johnvc/bing-copilot-api",
+  "input": {
+    "query": "best crm for startups"
+  }
 }
 ```
 
 ### Output
 
-JSON rows with these fields:
+The server tool's JSON response carries result rows with these fields (batch runs write the same rows):
 
 | Field | Type | Description |
 |---|---|---|
@@ -129,8 +172,12 @@ JSON rows with these fields:
 | `brandToTrack` | string | The brand checked for mentions, echoed from the input when provided. |
 | `brandMentioned` | boolean | True when the tracked brand appears in the AI answer text or its cited sources. Only present when brandToTrack is set. |
 | `summary` | string | One-line human-readable summary of the answer, built for AI agents. |
-| `note` | string | Extra context when no answer was returned for the query. |
+| `note` | string | Extra context: why no answer was returned, or that a stale copy was returned uncharged. |
 | `fetched_at` | string | ISO-8601 timestamp of when this row was fetched. |
+| `cached` | boolean | True when this answer was served from a saved copy fetched within max_cache_age_hours instead of a fresh lookup. Present only when caching is active. |
+| `cache_age_hours` | number | How old the saved copy was, in hours, when it was served. |
+| `answer_fetched_at` | string | ISO-8601 timestamp of when this answer was originally retrieved. Equals the fetch time for a fresh lookup. |
+| `stale` | boolean | True on an error row that carries the last good copy (up to 7 days old) because the live check did not complete. Stale copies are never charged. |
 | `error_message` | string | Human-readable error description on error rows. |
 | `error_type` | string | Machine-readable error class on error rows, e.g. MissingRequiredParameter or CopilotError. |
 

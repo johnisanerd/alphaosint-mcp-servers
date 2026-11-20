@@ -24,7 +24,7 @@ Each tool call runs the Apify Actor `johnvc/Google-Flights-Data-Scraper-Flight-a
 | Setup | $0.001 | One-time setup fee per Actor run |
 | Booking Options Processed | $0.02 | Fee per booking option returned when fetch_booking_options is enabled. Default is off. |
 
-Free-plan rates as of 2026-11-13; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/Google-Flights-Data-Scraper-Flight-and-Price-Search
+Free-plan rates as of 2026-11-19; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/Google-Flights-Data-Scraper-Flight-and-Price-Search
 
 ## Endpoint
 
@@ -100,8 +100,8 @@ Apify's endpoint adds the four helper tools whenever an Actor tool is loaded.
 |---|---|---|---|---|
 | `departure_id` | string |  | `"LAX"` | Departure airport code(s), comma-separated for multiple (e.g., 'LAX', 'JFK', 'CDG,ORY'). Required for one-way and round-trip searches. Not used for multi-city trips. |
 | `arrival_id` | string |  | `"JFK"` | Arrival airport code(s), comma-separated for multiple (e.g., 'JFK', 'SFO', 'LAX,SEA'). Required for one-way and round-trip searches. Not used for multi-city trips. |
-| `outbound_date` | string |  | `"2026-11-27"` | Departure date in YYYY-MM-DD format (e.g., '2025-11-25'). Required for one-way and round-trip searches. Not used for multi-city trips. |
-| `return_date` | string |  | `"2026-12-02"` | Return date in YYYY-MM-DD format (e.g., '2025-11-30'). Optional, used for round-trip searches. |
+| `outbound_date` | string |  | `"2026-12-15"` | Departure date in YYYY-MM-DD format (e.g., '2025-11-25'). Required for one-way and round-trip searches. Not used for multi-city trips. |
+| `return_date` | string |  | `"2026-12-20"` | Return date in YYYY-MM-DD format (e.g., '2025-11-30'). Optional, used for round-trip searches. |
 | `multi_city_json` | string |  |  | JSON string for multi-city trips. Format: [{"departure_id":"...","arrival_id":"...","date":"..."},...]. When provided, departure_id, arrival_id, and outbound_date are not required. |
 | `adults` | integer |  | `1` | Number of adult passengers (default: 1, minimum: 1) |
 | `children` | integer |  | `0` | Number of child passengers (default: 0, minimum: 0) |
@@ -125,8 +125,8 @@ Ask the agent in plain language, or call `johnvc--Google-Flights-Data-Scraper-Fl
 {
   "departure_id": "LAX",
   "arrival_id": "JFK",
-  "outbound_date": "2026-11-27",
-  "return_date": "2026-12-02"
+  "outbound_date": "2026-12-15",
+  "return_date": "2026-12-20"
 }
 ```
 

@@ -23,7 +23,7 @@ Each tool call runs the Apify Actor `johnvc/google-shopping-api-google-shopping-
 | Setup | $0.02 | One-time setup fee per Actor run. Covers initialization and API provisioning costs. |
 | Page Processed | $0.02 | Fee per page of shopping results processed. Each page returns approximately 40 product listings. |
 
-Free-plan rates as of 2026-11-13; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/google-shopping-api-google-shopping-products-prices-deals
+Free-plan rates as of 2026-11-19; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/google-shopping-api-google-shopping-products-prices-deals
 
 ## Endpoint
 
@@ -133,6 +133,9 @@ JSON rows with these fields:
 | `page_number` | integer | 1-indexed page number this dataset item represents. Each page of results is pushed as a separate item. |
 | `shopping_results` | array | Array of product listings returned on this page. Each item includes title, price, source, rating, reviews, delivery, and more. |
 | `filters` | array | Filter options available for narrowing results. Only present on the first page of results. |
+| `cached` | boolean | True when this page was reused from an identical search made in the last hour instead of fetched again. Cached pages are billed like fresh ones. |
+| `fetched_at` | string | ISO 8601 UTC time when this page's results were fetched from Google Shopping. |
+| `cache_age_hours` | number | How old a cached page was when it was served, in hours (always under 1). Present only on cached pages. |
 | `error` | boolean | True when this dataset item represents an error record rather than search results. |
 | `error_message` | string | Human-readable description of the error that occurred, if error is true. |
 | `error_type` | string | Machine-readable error category (e.g., 'InsufficientFunds', 'ValidationError', 'APIError'). |

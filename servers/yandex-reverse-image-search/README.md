@@ -24,7 +24,7 @@ Each request through `johnvc--yandex-reverse-image-search` is charged to your Ap
 |---|---|---|
 | Result returned | $0.0065 | One reverse image result row: a page where the image appears, a similar image, an alternate size, an image tag, a shopping match, or a knowledge graph card. |
 
-Free-plan rates as of 2026-11-18; paid Apify plans pay less per event. Batch runs also bill a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/yandex-reverse-image-search
+Free-plan rates as of 2026-11-19; paid Apify plans pay less per event. Batch runs also bill a token amount per run start and stored row ($0.00001, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/yandex-reverse-image-search
 
 ## Endpoint
 

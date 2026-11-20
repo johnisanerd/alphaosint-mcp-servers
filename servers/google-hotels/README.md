@@ -26,7 +26,7 @@ Each tool call runs the Apify Actor `johnvc/google-hotels-search-scraper` on you
 | Photo Returned | $0.001 | Fee per hotel photo returned, including full-size and thumbnail URLs, gallery section, dimensions, and source. |
 | Review Returned | $0.005 | Fee per guest review returned, including rating, review text, date, source platform, reviewer details, and the property's response. |
 
-Free-plan rates as of 2026-11-13; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00005). Current prices are on the Actor's page: https://apify.com/johnvc/google-hotels-search-scraper
+Free-plan rates as of 2026-11-19; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00001, $0.00005). Current prices are on the Actor's page: https://apify.com/johnvc/google-hotels-search-scraper
 
 ## Endpoint
 
@@ -106,8 +106,8 @@ Apify's endpoint adds the four helper tools whenever an Actor tool is loaded.
 | `gl` | string |  | `"us"` | Country code for localization (ISO 3166-1 alpha-2, e.g., 'us', 'fr', 'uk'). Optional. Defaults to 'us' if not specified. Applies to search, autocomplete, and reviews. |
 | `hl` | string |  | `"en"` | Language code for localization (ISO 639-1, e.g., 'en', 'fr', 'es'). Optional. Defaults to 'en' if not specified. Applies to search, autocomplete, and reviews. |
 | `currency` | string |  | `"USD"` | Currency code for prices (ISO 4217, e.g., 'USD', 'EUR', 'GBP'). Optional. Defaults based on country if not specified. Applies to search and autocomplete. |
-| `check_in_date` | string |  | `"2026-11-27"` | Check-in date in YYYY-MM-DD format (e.g., '2026-12-13'). Required when searching by query (q) in search mode. Optional when fetching property details by property_token: defaults to tomorrow, and the effective date is ec… |
-| `check_out_date` | string |  | `"2026-11-29"` | Check-out date in YYYY-MM-DD format (e.g., '2026-12-14'). Recommended when searching by query (q) in search mode. Must be after check_in_date. Optional when fetching property details by property_token: defaults to check… |
+| `check_in_date` | string |  | `"2026-12-15"` | Check-in date in YYYY-MM-DD format (e.g., '2026-12-13'). Required when searching by query (q) in search mode. Optional when fetching property details by property_token: defaults to tomorrow, and the effective date is ec… |
+| `check_out_date` | string |  | `"2026-12-17"` | Check-out date in YYYY-MM-DD format (e.g., '2026-12-14'). Recommended when searching by query (q) in search mode. Must be after check_in_date. Optional when fetching property details by property_token: defaults to check… |
 | `adults` | integer |  | `2` | Number of adult guests. Optional. Defaults to 2 if not specified. Search mode only. |
 | `children` | integer |  | `0` | Number of child guests. Optional. Defaults to 0 if not specified. Search mode only. |
 | `children_ages` | string |  |  | Comma-separated list of children ages as integers (e.g., '5,8,12'). Required if children > 0. Optional otherwise. Search mode only. |
@@ -137,8 +137,8 @@ Ask the agent in plain language, or call `johnvc--google-hotels-search-scraper` 
   "gl": "us",
   "hl": "en",
   "currency": "USD",
-  "check_in_date": "2026-11-27",
-  "check_out_date": "2026-11-29"
+  "check_in_date": "2026-12-15",
+  "check_out_date": "2026-12-17"
 }
 ```
 

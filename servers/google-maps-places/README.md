@@ -23,7 +23,7 @@ Each tool call runs the Apify Actor `johnvc/google-maps-places-api` on your own 
 | place Place (standard) | $0.002 | Per unique place returned in standard mode: name, address, phone, website, coordinates, and (when available) rating, review count, price level, category. |
 | Place (rich details) | $0.004 | Per unique place when Rich Details is enabled: adds opening hours, rating, review count, category types, description, photo thumbnail, booking links, and Place ID. |
 
-Free-plan rates as of 2026-11-13; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00005, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/google-maps-places-api
+Free-plan rates as of 2026-11-19; paid Apify plans pay less per event. Apify also bills a token amount per run start and stored row ($0.00005, $0.00001). Current prices are on the Actor's page: https://apify.com/johnvc/google-maps-places-api
 
 ## Endpoint
 
